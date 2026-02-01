@@ -21,34 +21,35 @@ Le système repose sur :
 - Intégrer le service dans une **extension Chrome**
 - Fournir une architecture claire et extensible
 
----
+## 🏗️ Structure du projet
 
-## Architecture du projet
-
+```text
 Darija-Translator/
 │
-├── translator-service/ # Service REST Java (JAX-RS)
-│ ├── pom.xml
-│ └── src/main/java/com/service/translation/
-│ ├── TranslationApp.java
-│ ├── TranslatorResource.java
-│ └── Translator.java
+├── translator-service/
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+│           └── java/
+│               └── com/
+│                   └── service/
+│                       └── translation/
+│                           ├── TranslationApp.java
+│                           ├── TranslatorResource.java
+│                           └── Translator.java
 │
 ├── DarijaTranslatorClient/
-│ ├── php-client/ # Client PHP
-│ │ ├── index.php
-│ │ ├── translate.php
-│ │ └── style.css
-│ │
-│ └── chrome-extension/ # Extension Chrome (Manifest V3)
-│ ├── manifest.json
-│ ├── sidepanel.html
-│ └── sidepanel.js
+│   ├── php-client/
+│   │   ├── index.php
+│   │   ├── translate.php
+│   │   └── style.css
+│   │
+│   └── chrome-extension/
+│       ├── manifest.json
+│       ├── sidepanel.html
+│       └── sidepanel.js
 │
 └── README.md
-
-
----
 
 ## Service REST (Java – JAX-RS)
 
