@@ -1,182 +1,178 @@
-# 🇲🇦 LLM-Powered English → Moroccan Darija Translator
+#  LLM-powered English → Moroccan Darija Translator
 
-## Description du projet
-Ce projet consiste à développer un **service web RESTful basé sur un LLM** permettant la **traduction de l’anglais vers le dialecte marocain (Darija)**.
+##  Description du projet
 
-Le projet a été réalisé dans le cadre du **cours Web Services**, encadré par **Pr. El Habib Nfaoui**.
+Ce projet consiste à développer un **service web RESTful** permettant la traduction automatique
+de l’anglais vers le dialecte marocain **Darija**, en s’appuyant sur un **Large Language Model (LLM)**.
 
-Le système repose sur :
-- un **service REST Java (JAX-RS)**,
-- un **client PHP**,
-- une **extension Chrome (Manifest V3)**,
-- et un **LLM (Google Gemini – version gratuite)** pour effectuer la traduction.
+Le système repose sur une **architecture client–service** :
 
----
+* un service REST développé en **Java (Jakarta EE / JAX-RS)**,
+* des clients consommateurs (PHP et extension Chrome).
 
-## Objectifs
-- Implémenter un service RESTful `TranslatorResource`
-- Consommer un LLM pour la traduction automatique
-- Tester le service avec **cURL, Postman et SoapUI**
-- Développer un **client PHP**
-- Intégrer le service dans une **extension Chrome**
-- Fournir une architecture claire et extensible
-
-## 🏗️ Structure du projet
-
-```text
-Darija-Translator/
-│
-├── translator-service/
-│   ├── pom.xml
-│   └── src/
-│       └── main/
-│           └── java/
-│               └── com/
-│                   └── service/
-│                       └── translation/
-│                           ├── TranslationApp.java
-│                           ├── TranslatorResource.java
-│                           └── Translator.java
-│
-├── DarijaTranslatorClient/
-│   ├── php-client/
-│   │   ├── index.php
-│   │   ├── translate.php
-│   │   └── style.css
-│   │
-│   └── chrome-extension/
-│       ├── manifest.json
-│       ├── sidepanel.html
-│       └── sidepanel.js
-│
-└── README.md
-
-## Service REST (Java – JAX-RS)
-
-### Endpoint principal
+La traduction est assurée par l’API **Google Gemini (offre gratuite)**.
 
 
-POST /translator-service/api/translate
+##  Objectifs du projet
+
+* Exposer une API REST `/api/translate`
+* Traduire un texte anglais vers le Darija
+* Intégrer un LLM pour une traduction contextuelle
+* Proposer plusieurs clients pour consommer le service
+* Gérer les erreurs (quota API, service indisponible)
 
 
-### Description
-- Reçoit un texte en anglais (format `text/plain`)
-- Appelle un **LLM (Google Gemini)**
-- Retourne la traduction en **Darija**
+##  Architecture du projet
 
-### Exemple avec cURL
-```bash
-curl -X POST http://localhost:8080/translator-service/api/translate \
-     -H "Content-Type: text/plain" \
-     -d "Hello how are you?"
+Darija-Translator
 
-Tests du service
+* translator-service
+
+  * pom.xml
+  * src/main/java/com/service/translation
+
+    * TranslationApp.java
+    * TranslatorResource.java
+    * Translator.java
+    * package-info.java
+  * src/main/webapp
+
+    * index.html
+
+* DarijaTranslatorClient
+
+  * php-client
+
+    * index.php
+    * translate.php
+    * style.css
+  * chrome-extension
+
+    * manifest.json
+    * sidepanel.html
+    * sidepanel.js
+
+* README.md
+
+
+## ⚙️ Technologies utilisées
+
+* Java 11+
+* Jakarta EE / JAX-RS
+* Google Gemini API (LLM)
+* PHP
+* HTML / CSS / JavaScript
+* Chrome Extension (Manifest V3)
+* Maven
+* Postman, SoapUI, cURL
+
+
+## 🔌 Service REST (Partie Java)
+
+* Endpoint principal : `/api/translate`
+* Méthode : POST
+* Entrée : texte en anglais (text/plain)
+* Sortie : traduction en Darija (text/plain)
+* Communication avec l’API Gemini
+* Gestion des erreurs (quota API, indisponibilité)
+
+
+## 🖥️ Clients consommateurs
+
+### Client Web PHP
+
+* Interface web simple
+* Envoi du texte au service Java
+* Nettoyage de la réponse
+* Support RTL pour l’arabe
+
+Fichiers :
+
+* index.php
+* translate.php
+* style.css
+
+
+### Extension Chrome
+
+* Side Panel (Manifest V3)
+* Traduction directe dans le navigateur
+* Communication avec le client PHP
+* Affichage correct en arabe (RTL)
+
+Fichiers :
+
+* manifest.json
+* sidepanel.html
+* sidepanel.js
+
+
+##  Tests
 
 Le service a été testé avec :
 
-✅ cURL
+* cURL
+* Postman
+* SoapUI
+* Client PHP
+* Extension Chrome
 
-✅ Postman
 
-✅ SoapUI
+##  Lancement du projet
 
-Les erreurs de quota (ex. 429 – Too Many Requests) sont correctement gérées et retournées au client.
+### 1️⃣ Service Java
 
- Client PHP
-Fonctionnalités
+* Ouvrir `translator-service` dans Eclipse
+* Vérifier Maven
+* Démarrer le serveur (Tomcat / Payara / GlassFish)
+* URL du service :
+  [http://localhost:8080/translator-service/api/translate](http://localhost:8080/translator-service/api/translate)
 
-Interface web simple
+### 2️⃣ Client PHP
 
-Envoi du texte au service REST
+* Copier `DarijaTranslatorClient` dans `htdocs`
+* Démarrer Apache (XAMPP)
+* Accéder à :
+  [http://127.0.0.1/DarijaTranslatorClient/php-client/index.php](http://127.0.0.1/DarijaTranslatorClient/php-client/index.php)
 
-Affichage propre de la traduction (RTL pour l’arabe)
+### 3️⃣ Extension Chrome
 
-Gestion des erreurs (service indisponible, texte vide)
+* Ouvrir `chrome://extensions`
+* Activer le mode développeur
+* Cliquer sur “Load unpacked”
+* Sélectionner le dossier `chrome-extension`
 
-Fichiers principaux
 
-index.php : interface utilisateur
+##  Sécurité & limites
 
-translate.php : proxy vers le service REST
+* L’authentification Jakarta était prévue
+* Non intégrée par manque de temps
+* L’architecture permet une extension future
 
-style.css : design moderne
 
- Extension Chrome (Manifest V3)
-Fonctionnalités
+##  Vidéo de démonstration
 
-Utilisation de chrome.sidePanel
+La vidéo (≈ 5 minutes) présente :
 
-Traduction directement depuis le navigateur
+* l’architecture du projet
+* le service REST
+* les tests
+* le client PHP
+* l’extension Chrome
 
-Appel du client PHP via fetch
-
-Affichage instantané du résultat en Darija
-
-Technologies
-
-Manifest V3
-
-JavaScript
-
-HTML / CSS
-
-API Fetch
-
- Vidéo de démonstration (5 minutes)
-
-Une vidéo de démonstration présente :
-
-l’architecture du projet
-
-le service REST en Java
-
-les tests (cURL / Postman)
-
-le client PHP
-
-l’extension Chrome
-
-le résultat final de la traduction
-
-👉 Lien de la vidéo :
+Lien de la vidéo :
 https://drive.google.com/drive/folders/1_KroaTyz7n4IUtfZ-K0pDG-Dzkq3kxld?usp=drive_link
 
-🔐 Sécurité
+##  Améliorations futures
 
-La sécurisation via Jakarta Authentication (Basic Auth) était prévue.
-Cependant, par manque de temps, elle n’a pas été intégrée dans cette version.
+* Sécurisation de l’API
+* Support JSON
+* Cache des traductions
+* Synthèse vocale
+* Autres modèles LLM
 
-L’architecture permet toutefois son ajout facilement dans une version future.
 
-🛠️ Technologies utilisées
-
-Java 11+
-
-Jakarta EE / JAX-RS
-
-Google Gemini API (LLM)
-
-PHP
-
-HTML / CSS / JavaScript
-
-Chrome Extension (Manifest V3)
-
-Postman, SoapUI, cURL
-
-## Améliorations possibles
-
-Authentification (Jakarta Security)
-
-Traduction vocale (speech-to-text / text-to-speech)
-
-Support d’autres langues
-
-Déploiement avec un conteneur embarqué
-
-Utilisation d’un LLM local
-
-## Auteur
+##  Auteur
 
 Yassine Kerbal
-Projet réalisé dans le cadre du cours Web Services
+Projet réalisé dans le cadre du cours **Web Services**
