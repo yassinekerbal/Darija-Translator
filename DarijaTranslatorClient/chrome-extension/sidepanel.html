@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: sans-serif; padding: 10px; width: 300px; }
+    textarea { width: 100%; border-radius: 5px; border: 1px solid #ccc; padding: 5px; }
+    button { width: 100%; padding: 10px; background: #1a73e8; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    #output { font-size: 18px; font-weight: bold; background: #f0f4f8; }
+  </style>
+</head>
+<body>
+  <h3>English → Darija</h3>
+  <textarea id="input" rows="5" placeholder="Type English here..."></textarea><br><br>
+  <button id="btnTranslate">Translate</button><br><br>
+  <textarea id="output" rows="4" readonly></textarea>
+
+  <script>
+    // Il est recommandé d'ajouter l'événement ici plutôt que dans le HTML
+    document.getElementById("btnTranslate").addEventListener("click", startTranslation);
+  </script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

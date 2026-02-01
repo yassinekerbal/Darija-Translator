@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Traducteur Anglais vers Darija</title>
+</head>
+<body>
+   <h1>Traducteur Anglais vers Darija</h1>
+    <textarea id="textInput" placeholder="Tapez en anglais..."></textarea><br>
+    <button onclick="envoyer()">Traduire</button>
+    <p>Résultat : <span id="output"></span></p>
+
+    <script>
+        function envoyer() {
+            const val = document.getElementById('textInput').value;
+            fetch('/translator-service/api/translate', {
+                method: 'POST',
+                headers: {'Content-Type': 'text/plain'},
+                body: val
+            })
+            .then(res => res.text())
+            .then(data => document.getElementById('output').innerText = data);
+        }
+    </script>
+</body>
+</html>
