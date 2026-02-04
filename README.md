@@ -161,7 +161,7 @@ La vidéo (≈ 5 minutes) présente :
 * l’extension Chrome
 
 Lien de la vidéo :
-https://drive.google.com/drive/folders/1_KroaTyz7n4IUtfZ-K0pDG-Dzkq3kxld?usp=drive_link
+https://drive.google.com/file/d/1MliNU8oJ8fufD69S4dLEvoqiuVBHK0f_/view?usp=drive_link
 
 ##  Améliorations futures
 
